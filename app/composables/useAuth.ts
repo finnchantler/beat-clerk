@@ -1,12 +1,4 @@
-export interface User {
-  id: string
-  email: string
-  username: string
-}
-
-export interface AuthResponse {
-  user: User
-}
+import type { User, AuthResponse } from '~/types/auth'
 
 export const useAuth = () => {
   const user = useState<User | null>('auth.user', () => null)

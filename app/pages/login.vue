@@ -39,22 +39,12 @@ const handleSubmit = async () => {
     <form @submit.prevent="handleSubmit">
       <div>
         <label for="email">Email</label>
-        <input
-          id="email"
-          v-model="email"
-          type="email"
-          autocomplete="email"
-        />
+        <input id="email" v-model="email" type="email" autocomplete="email" />
       </div>
 
       <div>
         <label for="password">Password</label>
-        <input
-          id="password"
-          v-model="password"
-          type="password"
-          autocomplete="current-password"
-        />
+        <input id="password" v-model="password" type="password" autocomplete="current-password" />
       </div>
 
       <p v-if="error">{{ error }}</p>
