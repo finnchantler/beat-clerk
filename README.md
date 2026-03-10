@@ -4,7 +4,8 @@ developed by me, finn
 
 list of things still to do:
 
-- Nuxt 4 scaffold — basic collection UI
+- Create the release listing component, pull in cover
+- Fix styling, pull in feather icons
 - Discogs sync — poll collection, import flow, save to DB
 - Custom import — manual form path
 - Ability to star tracks in a tracklist

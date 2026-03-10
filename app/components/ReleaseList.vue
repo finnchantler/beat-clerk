@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import type { Release } from '~/types/release'
-
 const { releases, loading, error, fetchReleases, deleteRelease } = useReleases()
 
 onMounted(async () => {
