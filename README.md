@@ -4,4 +4,12 @@ developed by me, finn
 
 list of things still to do:
 
-- everything
+- Nuxt 4 scaffold — auth (BE & UI), basic collection UI
+- Discogs sync — poll collection, import flow, save to DB
+- Custom import — manual form path
+- Discogs Watcher — migrate existing project in
+- Local agent — WebSocket connection, file scanning, tag reading
+- File matching — fuzzy match pipeline, link files to DB records
+- Tag writing — push metadata from DB back to files
+- Email integration (confirmation, reset password, notifications)
+- USB export — pyrekordbox integration
