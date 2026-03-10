@@ -9,6 +9,7 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "db:migrate": "prisma migrate dev",
+    "db:generate": "prisma generate",
     "db:studio": "prisma studio",
     "db:push": "prisma db push",
     "lint": "eslint .",
@@ -17,13 +18,18 @@
   },
   "dependencies": {
     "@nuxt/eslint": "^1.15.2",
+    "@prisma/adapter-pg": "^7.4.2",
     "@prisma/client": "^7.4.2",
+    "bcrypt": "^6.0.0",
     "nuxt": "^4.3.1",
+    "pg": "^8.20.0",
     "vue": "^3.5.29",
     "vue-router": "^4.6.4"
   },
   "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
     "@types/node": "^25.4.0",
+    "@types/pg": "^8.18.0",
     "eslint-config-prettier": "^10.1.8",
     "prettier": "^3.8.1",
     "prisma": "^7.4.2"
