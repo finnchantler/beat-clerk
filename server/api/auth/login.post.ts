@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt'
-import { createSession } from '~/server/utils/session'
-import { prisma } from '~/server/utils/prisma'
+import { createSession } from '#server/utils/session'
+import { prisma } from '#server/utils/prisma'
 
 export default defineEventHandler(async (event) => {
   const { email, password } = await readBody(event)

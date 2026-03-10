@@ -37,7 +37,8 @@ export const useAuth = () => {
   }
 
   const fetchUser = async () => {
-    user.value = await $fetch<User | null>('/api/auth/me')
+    const headers = useRequestHeaders(['cookie'])
+    user.value = await $fetch<User | null>('/api/auth/me', { headers })
   }
 
   return { user, loggedIn, register, login, logout, fetchUser }

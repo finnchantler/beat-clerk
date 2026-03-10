@@ -1,4 +1,4 @@
-import { deleteSession } from '~/server/utils/session'
+import { deleteSession } from '#server/utils/session'
 
 export default defineEventHandler(async (event) => {
   await deleteSession(event)
