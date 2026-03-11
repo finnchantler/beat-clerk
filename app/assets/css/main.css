@@ -1,17 +1,14 @@
 :root {
-    --color-bg: #0a0a0a;
-    --color-surface: #111;
-    --color-border: #222;
-    --color-border-hover: #444;
-    --color-text-primary: #f0f0f0;
-    --color-text-secondary: #888;
-    --color-text-muted: #666;
-    --color-accent: #f0f0f0;
-    --color-hover: #9e3c3c;
-    --color-error: #e05c5c;
+    --colour-background: #232225;
+    --colour-background-gradient: #451D47;
+    --colour-surface: #1A191B;
+    --colour-surface-dark: #121113;
+    --colour-text-primary: #EEEEF0;
+    --colour-text-muted: #B5B2BC;
+    --colour-border: #3C393F;
 
     --radius-sm: 5px;
-    --radius-md: 8px;
+    --radius-md: 12px;
 }
 
 * {
@@ -21,15 +18,21 @@
 }
 
 body {
-    background: var(--color-bg);
-    color: var(--color-text-primary);
+    background:
+            radial-gradient(
+                    ellipse 40% 120% at 10% 50%,
+                    var(--colour-background-gradient),
+                    transparent 100%
+            ),
+            var(--colour-background);
+    color: var(--colour-text-primary);
     font-family: 'Aileron', sans-serif;
 }
 
 .logo {
-    font-size: 120px;
-    font-weight: 600;
+    font-size: 24px;
+    font-weight: 200;
     letter-spacing: 0.12em;
-    color: var(--color-text-primary);
+    color: var(--colour-text-primary);
     text-decoration: none;
 }

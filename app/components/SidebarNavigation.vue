@@ -45,9 +45,10 @@ const handleLogout = async () => {
 <style scoped>
 .sidebar {
   width: 220px;
-  height: 100%;
-  background: var(--color-surface);
-  border-right: 1px solid var(--color-border);
+  background: var(--colour-surface-dark);
+  margin-left: 10px;
+  margin-bottom: 10px;
+  border-radius: var(--radius-md);
   display: flex;
   flex-direction: column;
   padding: 1.5rem 0;
@@ -69,7 +70,7 @@ const handleLogout = async () => {
   padding: 0.6rem 0.75rem;
   border-radius: 6px;
   text-decoration: none;
-  color: var(--color-text-primary);
+  color: var(--colour-text-primary);
   font-size: 0.9rem;
   font-weight: 500;
   transition:
@@ -78,12 +79,10 @@ const handleLogout = async () => {
 }
 
 .sidebar__item:hover {
-  background: var(--color-hover);
-  color: var(--color-text-muted);
+  color: var(--colour-text-muted);
 }
 
 .sidebar__item--active {
-  background: var(--color-accent);
 }
 
 .sidebar__label {
@@ -92,7 +91,7 @@ const handleLogout = async () => {
 
 .sidebar__footer {
   padding: 1rem 1.5rem 0;
-  border-top: 1px solid var(--color-border);
+  border-top: 1px solid var(--colour-border);
   margin-top: auto;
   display: flex;
   flex-direction: column;
@@ -106,14 +105,14 @@ const handleLogout = async () => {
 
 .sidebar__username {
   font-size: 0.85rem;
-  color: var(--color-text-secondary);
+  color: var(--colour-text-primary);
 }
 
 .sidebar__logout {
   background: none;
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--colour-border);
   border-radius: 5px;
-  color: var(--color-text-secondary);
+  color: var(--colour-text-muted);
   font-size: 0.8rem;
   padding: 0.4rem 0.75rem;
   cursor: pointer;
@@ -125,7 +124,6 @@ const handleLogout = async () => {
 }
 
 .sidebar__logout:hover {
-  border-color: var(--color-border-hover);
-  color: var(--color-text-muted);
+  color: var(--colour-text-muted);
 }
 </style>

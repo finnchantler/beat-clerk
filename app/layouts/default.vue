@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Navigation from '~/components/Navigation.vue'
+import SidebarNavigation from '~/components/SidebarNavigation.vue'
 </script>
 <template>
   <div class="layout">
@@ -7,9 +7,12 @@ import Navigation from '~/components/Navigation.vue'
       <NuxtLink to="/" class="logo">beat-clerk</NuxtLink>
     </header>
     <div class="layout__body">
-      <Navigation />
+      <SidebarNavigation />
       <main class="layout__main">
-        <slot />
+        <HorizontalBar />
+        <div class="layout__content">
+          <slot />
+        </div>
       </main>
     </div>
   </div>
@@ -24,8 +27,7 @@ import Navigation from '~/components/Navigation.vue'
 
 .layout__header {
   text-align: center;
-  padding: 2rem;
-  border-bottom: 1px solid var(--color-border);
+  padding: 10px 0;
 }
 
 .layout__body {
@@ -34,8 +36,16 @@ import Navigation from '~/components/Navigation.vue'
 }
 
 .layout__main {
+  background-color: var(--colour-surface);
+  border-radius: var(--radius-md);
+  margin-bottom: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
   flex: 1;
-  padding: 2rem;
   overflow-y: auto;
+}
+
+.layout__content {
+  padding: 30px;
 }
 </style>
