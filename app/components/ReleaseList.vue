@@ -13,6 +13,8 @@ const handleDelete = async (id: string) => {
 const formatStyles = (styles: string[]) => {
   return styles.map((s) => s.replace(/_/g, ' ')).join(', ')
 }
+
+const view = 'grid'
 </script>
 
 <template>
@@ -23,28 +25,22 @@ const formatStyles = (styles: string[]) => {
 
     <p v-else-if="releases.length === 0">Your collection is empty. Add your first release above.</p>
 
-    <ul v-else>
-      <li v-for="release in releases" :key="release.id">
-        <div>
-          <p>{{ release.artists.join(', ') }}</p>
-          <h2>{{ release.title }}</h2>
-          <p>{{ release.format }}</p>
-          <p v-if="release.year">{{ release.year }}</p>
-          <p v-if="release.label">{{ release.label }}</p>
-          <p v-if="release.country">{{ release.country }}</p>
-          <p>{{ formatStyles(release.style) }}</p>
-        </div>
-
-        <div v-if="release.tracks.length > 0">
-          <ol>
-            <li v-for="track in release.tracks" :key="track.id">
-              {{ track.position }}. {{ track.title }}
-            </li>
-          </ol>
-        </div>
-
-        <button @click="handleDelete(release.id)">Remove</button>
-      </li>
-    </ul>
+    <div v-else :class="view === 'grid' ? 'releases-grid' : 'releases-list'">
+      <ReleaseCard v-for="release in releases" :key="release.id" :release="release" :view="view" />
+    </div>
   </div>
 </template>
+
+<style scoped>
+.releases-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+}
+
+.releases-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+</style>
