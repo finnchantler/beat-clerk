@@ -18,6 +18,8 @@ model User {
     email String @unique
     username String @unique
     passwordHash String
+    discogsUsername String?
+    discogsToken String?
     sessions Session[]
     releases Release[]
     createdAt DateTime @default(now())
