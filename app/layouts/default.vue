@@ -9,7 +9,6 @@ import SidebarNavigation from '~/components/SidebarNavigation.vue'
     <div class="layout__body">
       <SidebarNavigation />
       <main class="layout__main">
-        <HorizontalBar />
         <div class="layout__content">
           <slot />
         </div>
@@ -43,9 +42,5 @@ import SidebarNavigation from '~/components/SidebarNavigation.vue'
   margin-right: 10px;
   flex: 1;
   overflow-y: auto;
-}
-
-.layout__content {
-  padding: 30px;
 }
 </style>

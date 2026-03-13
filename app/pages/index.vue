@@ -27,12 +27,10 @@ const syncCollection = async () => {
 </script>
 
 <template>
+  <HorizontalBar :sync-loading="syncLoading" @sync="syncCollection" />
   <div class="collection">
     <div class="collection__header">
       <h1 class="collection__title">Collection</h1>
-      <button class="collection__sync" @click="syncCollection" :disabled="syncLoading">
-        {{ syncLoading ? 'Syncing...' : 'Sync Discogs' }}
-      </button>
     </div>
 
     <div v-if="syncError" class="collection__sync-error">
@@ -47,3 +45,13 @@ const syncCollection = async () => {
     <ReleaseList />
   </div>
 </template>
+
+<style scoped>
+.collection {
+  padding: 30px;
+}
+
+.collection__header {
+  margin-bottom: 20px;
+}
+</style>
