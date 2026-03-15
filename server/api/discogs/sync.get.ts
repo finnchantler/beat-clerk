@@ -41,6 +41,9 @@ export default defineEventHandler(async (event) => {
       const mapped = mapDiscogsRelease(item)
       const discogsId = item.basic_information.id
 
+      const existing = await prisma.release.findUnique({ where: { discogsId } })
+      if (existing) continue
+
       const tracks = await fetchDiscogsReleaseDetails(discogsId, fullUser.discogsToken)
 
       await sleep(1100)

@@ -17,6 +17,7 @@ const syncCollection = () => {
   syncComplete.value = false
 
   const source = new EventSource('api/discogs/sync')
+  let completed = false
 
   source.onmessage = async (event: MessageEvent) => {
     const data = JSON.parse(event.data)
@@ -30,7 +31,15 @@ const syncCollection = () => {
       await fetchReleases()
     }
 
+    if (data.type === 'complete') {
+      completed = true
+      syncComplete.value = true
+      syncLoading.value = false
+      source.close()
+    }
+
     if (data.type === 'error') {
+      completed = true
       syncError.value = data.message
       syncLoading.value = false
       source.close()
@@ -38,6 +47,7 @@ const syncCollection = () => {
   }
 
   source.onerror = () => {
+    if (completed) return
     syncError.value = 'Connection lost during sync'
     syncLoading.value = false
     source.close()
