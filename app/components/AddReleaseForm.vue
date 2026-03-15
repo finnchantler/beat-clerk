@@ -112,7 +112,7 @@ const formatOptions = Object.values(Format)
       <div v-for="(artist, index) in artists" :key="index">
         <input v-model="artists[index]" type="text" placeholder="Artist name" />
         <button
-          class="btn-danger"
+          class="btn-reset btn-danger"
           type="button"
           @click="removeArtist(index)"
           :disabled="artists.length === 1"
@@ -120,7 +120,7 @@ const formatOptions = Object.values(Format)
           Remove
         </button>
       </div>
-      <button class="btn-ghost" type="button" @click="addArtist">Add artist</button>
+      <button class="btn-reset btn-ghost" type="button" @click="addArtist">Add artist</button>
     </div>
 
     <div class="form-field">
@@ -135,7 +135,7 @@ const formatOptions = Object.values(Format)
         v-for="s in styleOptions"
         :key="s.value"
         type="button"
-        :class="['style-chip', { 'style-chip--active': style.includes(s.value) }]"
+        :class="['btn-reset', 'style-chip', { 'style-chip--active': style.includes(s.value) }]"
         @click="toggleStyle(s.value)"
       >
         {{ s.label }}
@@ -162,9 +162,11 @@ const formatOptions = Object.values(Format)
       <label>Tracklist</label>
       <div v-for="(track, index) in tracks" :key="index">
         <input v-model="track.title" type="text" :placeholder="`Track ${track.position} title`" />
-        <button class="btn-danger" type="button" @click="removeTrack(index)">Remove</button>
+        <button class="btn-reset btn-danger" type="button" @click="removeTrack(index)">
+          Remove
+        </button>
       </div>
-      <button class="btn-ghost" type="button" @click="addTrack">Add track</button>
+      <button class="btn-reset btn-ghost" type="button" @click="addTrack">Add track</button>
     </div>
 
     <p v-if="error">{{ error }}</p>
@@ -186,10 +188,8 @@ const formatOptions = Object.values(Format)
   padding: 0.3rem 0.75rem;
   border-radius: 999px;
   border: 1px solid var(--colour-border);
-  background: none;
   color: var(--colour-text-muted);
   font-size: 0.8rem;
-  cursor: pointer;
   transition: all 0.15s;
 }
 
@@ -236,13 +236,11 @@ select:focus {
 }
 
 .btn-ghost {
-  background: none;
   border: 1px solid var(--colour-border);
   color: var(--colour-text-muted);
   padding: 0.35rem 0.75rem;
   border-radius: var(--radius-sm);
   font-size: 0.8rem;
-  cursor: pointer;
   transition: all 0.15s;
 }
 
@@ -252,11 +250,8 @@ select:focus {
 }
 
 .btn-danger {
-  background: none;
-  border: none;
   color: var(--colour-text-muted);
   font-size: 0.75rem;
-  cursor: pointer;
   transition: color 0.15s;
   padding: 0 0.25rem;
 }

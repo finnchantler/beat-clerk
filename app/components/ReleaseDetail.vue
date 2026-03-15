@@ -90,11 +90,11 @@ const cancelEdit = () => {
         <h3 class="release-detail__section-title">Styles</h3>
         <button
           v-if="!editingStyles"
-          class="icon-btn"
+          class="btn-reset icon-btn"
           @click="editingStyles = true"
           aria-label="Edit styles"
         >
-          <VueFeather type="edit-2" size="14" />
+          <VueFeather type="edit-2" size="14" class="edit-icon" />
         </button>
       </div>
 
@@ -116,7 +116,11 @@ const cancelEdit = () => {
             v-for="s in styleOptions"
             :key="s.value"
             type="button"
-            :class="['style-chip', { 'style-chip--active': selectedStyles.includes(s.value) }]"
+            :class="[
+              'btn-reset',
+              'style-chip',
+              { 'style-chip--active': selectedStyles.includes(s.value) },
+            ]"
             @click="toggleStyle(s.value)"
           >
             {{ s.label }}
@@ -124,8 +128,8 @@ const cancelEdit = () => {
         </div>
         <p v-if="saveError" class="release-detail__error">{{ saveError }}</p>
         <div class="release-detail__edit-actions">
-          <button class="btn-ghost" @click="cancelEdit">Cancel</button>
-          <button class="btn-ghost" :disabled="saveLoading" @click="saveStyles">
+          <button class="btn-reset btn-ghost" @click="cancelEdit">Cancel</button>
+          <button class="btn-reset btn-ghost" :disabled="saveLoading" @click="saveStyles">
             {{ saveLoading ? 'Saving...' : 'Save' }}
           </button>
         </div>
@@ -237,6 +241,15 @@ const cancelEdit = () => {
   justify-content: space-between;
 }
 
+.icon-btn {
+  display: flex;
+  align-items: center;
+}
+
+.edit-icon {
+  color: var(--colour-text-primary);
+}
+
 .release-detail__section-title {
   font-size: 0.75rem;
   font-weight: 600;
@@ -263,10 +276,8 @@ const cancelEdit = () => {
   padding: 0.3rem 0.75rem;
   border-radius: 999px;
   border: 1px solid var(--colour-border);
-  background: none;
   color: var(--colour-text-muted);
   font-size: 0.8rem;
-  cursor: pointer;
   transition: all 0.15s;
 }
 
@@ -319,13 +330,11 @@ const cancelEdit = () => {
 }
 
 .btn-ghost {
-  background: none;
   border: 1px solid var(--colour-border);
   color: var(--colour-text-muted);
   padding: 0.35rem 0.75rem;
   border-radius: var(--radius-sm);
   font-size: 0.8rem;
-  cursor: pointer;
   transition: all 0.15s;
 }
 

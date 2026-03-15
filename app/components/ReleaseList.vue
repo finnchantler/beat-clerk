@@ -9,9 +9,11 @@ onMounted(async () => {
 
 const selectedRelease = ref<Release | null>(null)
 
-const handleDelete = async (id: string) => {
-  if (!confirm('Are you sure you want to remove this release?')) return
-  await deleteRelease(id)
+const handleUpdated = (updated: Release) => {
+  const index = releases.value.findIndex((r) => r.id === updated.id)
+  if (index !== -1) {
+    releases.value[index] = updated
+  }
 }
 
 const formatStyles = (styles: string[]) => {
@@ -44,7 +46,7 @@ const view = 'grid'
       :title="selectedRelease?.title"
       @close="selectedRelease = null"
     >
-      <ReleaseDetail v-if="selectedRelease" :release="selectedRelease" />
+      <ReleaseDetail v-if="selectedRelease" :release="selectedRelease" @updated="handleUpdated" />
     </Modal>
   </div>
 </template>

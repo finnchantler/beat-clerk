@@ -7,7 +7,7 @@ const { actions } = useHorizontalBar()
     <button
       v-for="(action, i) in actions"
       :key="i"
-      class="icon-btn"
+      class="btn-reset icon-btn"
       :disabled="action.loading?.value"
       @click="action.onClick"
     >
@@ -32,10 +32,6 @@ const { actions } = useHorizontalBar()
 }
 
 .icon-btn {
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
   color: var(--colour-text-primary);
   display: flex;
   align-items: center;

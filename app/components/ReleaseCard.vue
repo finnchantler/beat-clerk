@@ -39,11 +39,38 @@ const formatArtists = (artists: string[]) => artists.join(', ')
 <style scoped>
 /* Base card */
 .release-card {
+  position: relative;
   background: var(--colour-background);
   border: 1px solid var(--colour-border);
   border-radius: var(--radius-md);
   overflow: hidden;
-  transition: border-color 0.15s;
+  cursor: pointer;
+  transition:
+    border-color 0.3s,
+    box-shadow 0.3s,
+    transform 0.3s;
+}
+
+.release-card:hover {
+  //border-color: var(--colour-border-hover);
+  box-shadow: 0 0 20px 4px var(--colour-background-gradient);
+  transform: translateY(-2px);
+}
+
+.release-card::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: var(--radius-md);
+  background: radial-gradient(ellipse at 50% 100%, rgba(255, 255, 255, 0.06) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.release-card:hover::before {
+  opacity: 1;
 }
 
 /* Grid view */
@@ -65,6 +92,8 @@ const formatArtists = (artists: string[]) => artists.join(', ')
 }
 
 .release-card--grid .release-card__details {
+  position: relative;
+  z-index: 1;
   padding: 0.75rem;
   display: flex;
   flex-direction: column;
@@ -96,6 +125,8 @@ const formatArtists = (artists: string[]) => artists.join(', ')
 }
 
 .release-card--list .release-card__details {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
   gap: 1.5rem;

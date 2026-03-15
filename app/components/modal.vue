@@ -22,7 +22,7 @@ const handleBackdropClick = (e: MouseEvent) => {
         <div class="modal">
           <div class="modal__header">
             <h2 v-if="title" class="modal__title">{{ title }}</h2>
-            <button class="modal__close icon-btn" @click="emit('close')" aria-label="Close modal">
+            <button class="btn-reset modal__close" @click="emit('close')" aria-label="Close modal">
               <VueFeather type="x" size="22" />
             </button>
           </div>
@@ -78,10 +78,6 @@ const handleBackdropClick = (e: MouseEvent) => {
 }
 
 .modal__close {
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
   color: #fff;
   display: flex;
   align-items: center;

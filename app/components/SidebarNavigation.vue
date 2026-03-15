@@ -35,7 +35,7 @@ const handleLogout = async () => {
       <div class="sidebar__user">
         <span class="sidebar__username">{{ user?.username }}</span>
       </div>
-      <button class="sidebar__logout" @click="handleLogout">Log out</button>
+      <button class="btn-reset sidebar__logout" @click="handleLogout">Log out</button>
     </div>
   </aside>
 </template>
@@ -107,13 +107,11 @@ const handleLogout = async () => {
 }
 
 .sidebar__logout {
-  background: none;
   border: 1px solid var(--colour-border);
   border-radius: 5px;
   color: var(--colour-text-muted);
   font-size: 0.8rem;
   padding: 0.4rem 0.75rem;
-  cursor: pointer;
   text-align: left;
   transition:
     border-color 0.15s,
