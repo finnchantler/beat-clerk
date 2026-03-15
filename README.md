@@ -4,7 +4,6 @@ developed by me, finn
 
 list of things still to do:
 
-- Custom import — manual form path
 - Release modal to show more details
 - Add options to change size of release card on collection listing
 - Add search to the horizontal bar

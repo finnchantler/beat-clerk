@@ -3,6 +3,11 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   srcDir: 'app/',
   devtools: { enabled: true },
+  app: {
+    head: {
+      title: 'beat-clerk',
+    },
+  },
   modules: ['@nuxt/eslint', '@nuxt/fonts'],
   fonts: {
     defaults: {

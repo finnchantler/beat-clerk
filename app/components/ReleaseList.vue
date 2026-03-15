@@ -1,9 +1,13 @@
 <script setup lang="ts">
+import type { Release } from '~/types/release'
+
 const { releases, loading, error, fetchReleases, deleteRelease } = useReleases()
 
 onMounted(async () => {
   await fetchReleases()
 })
+
+const selectedRelease = ref<Release | null>(null)
 
 const handleDelete = async (id: string) => {
   if (!confirm('Are you sure you want to remove this release?')) return
@@ -26,8 +30,22 @@ const view = 'grid'
     <p v-else-if="releases.length === 0">Your collection is empty. Add your first release above.</p>
 
     <div v-else :class="view === 'grid' ? 'releases-grid' : 'releases-list'">
-      <ReleaseCard v-for="release in releases" :key="release.id" :release="release" :view="view" />
+      <ReleaseCard
+        v-for="release in releases"
+        :key="release.id"
+        :release="release"
+        :view="view"
+        @select="selectedRelease = $event"
+      />
     </div>
+
+    <Modal
+      :open="selectedRelease !== null"
+      :title="selectedRelease?.title"
+      @close="selectedRelease = null"
+    >
+      <ReleaseDetail v-if="selectedRelease" :release="selectedRelease" />
+    </Modal>
   </div>
 </template>
 

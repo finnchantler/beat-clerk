@@ -32,7 +32,10 @@ export async function fetchDiscogsCollection(username: string, token: string) {
   return releases
 }
 
-export async function fetchDiscogsReleaseDetails(discogsId: number, token: string) {
+export async function fetchDiscogsReleaseDetails(
+  discogsId: number,
+  token: string
+): Promise<{ tracks: { position: number; title: string }[]; country: string | null }> {
   const data: any = await $fetch(`${DISCOGS_API_BASE}/releases/${discogsId}`, {
     headers: {
       Authorization: `Discogs token=${token}`,
@@ -40,12 +43,14 @@ export async function fetchDiscogsReleaseDetails(discogsId: number, token: strin
     },
   })
 
-  return data.tracklist
+  const tracks = data.tracklist
     .map((track: any, index: number) => ({
       position: index + 1,
       title: track.title,
     }))
     .filter((track: any) => track.title.trim() !== '')
+
+  return { tracks, country: data.country ?? null }
 }
 
 export function mapDiscogsRelease(item: any) {
@@ -59,7 +64,7 @@ export function mapDiscogsRelease(item: any) {
     }),
     year: info.year || null,
     format: mapFormat(info.formats),
-    label: info.labels?.[0]?.name ?? null,
+    label: info.labels?.[0]?.name?.replace(/\s*\(\d+\)\s*$/, '').trim() ?? null,
     style: [] as Style[],
     country: null,
     cover: info.cover_image ?? null,

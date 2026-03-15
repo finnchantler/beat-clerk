@@ -6,6 +6,10 @@ const props = defineProps<{
   view: 'grid' | 'list'
 }>()
 
+const emit = defineEmits<{
+  select: [release: Release]
+}>()
+
 const formatStyles = (styles: string[]) =>
   styles.map((style) => style.replace(/_/g, ' ')).join(', ')
 
@@ -13,7 +17,7 @@ const formatArtists = (artists: string[]) => artists.join(', ')
 </script>
 
 <template>
-  <div :class="['release-card', `release-card--${view}`]">
+  <div :class="['release-card', `release-card--${view}`]" @click="emit('select', release)">
     <div v-if="release.cover" class="release-card__cover">
       <img :src="release.cover" :alt="`${release.title} cover`" />
     </div>
@@ -23,11 +27,10 @@ const formatArtists = (artists: string[]) => artists.join(', ')
       <p class="release-card__artists">{{ formatArtists(release.artists) }}</p>
 
       <div class="release-card__meta">
-        <span v-if="release.country || release.year">
-          {{ [release.country, release.year].filter(Boolean).join(' - ') }}
-        </span>
-        <span>{{ formatStyles(release.style) }}</span>
-        <span>{{ release.format }}</span>
+        <span v-if="release.country">{{ release.country }}</span>
+        <span v-if="release.year">{{ release.year }}</span>
+        <span v-if="release.style?.length">{{ formatStyles(release.style) }}</span>
+        <span v-if="release.format">{{ release.format }}</span>
       </div>
     </div>
   </div>
@@ -135,6 +138,6 @@ const formatArtists = (artists: string[]) => artists.join(', ')
 .release-card__meta span:not(:last-child)::after {
   content: '·';
   margin-left: 0.5rem;
-  color: var(--colour-border);
+  color: var(--colour-text-primary);
 }
 </style>
