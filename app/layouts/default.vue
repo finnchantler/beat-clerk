@@ -21,7 +21,8 @@ import SidebarNavigation from '~/components/SidebarNavigation.vue'
 .layout {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
 }
 
 .layout__header {
@@ -32,6 +33,7 @@ import SidebarNavigation from '~/components/SidebarNavigation.vue'
 .layout__body {
   display: flex;
   flex: 1;
+  overflow: hidden;
 }
 
 .layout__main {

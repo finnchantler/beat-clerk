@@ -36,7 +36,7 @@ const formatArtists = (artists: string[]) => artists.join(', ')
 <style scoped>
 /* Base card */
 .release-card {
-  background: var(--colour-background-gradient);
+  background: var(--colour-background);
   border: 1px solid var(--colour-border);
   border-radius: var(--radius-md);
   overflow: hidden;

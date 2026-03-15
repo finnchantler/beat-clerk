@@ -21,6 +21,9 @@ const emit = defineEmits<{ sync: [] }>()
 
 <style scoped>
 .bar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
   height: 50px;
   background-color: var(--colour-surface-dark);
   width: 100%;
