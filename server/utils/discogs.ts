@@ -32,6 +32,22 @@ export async function fetchDiscogsCollection(username: string, token: string) {
   return releases
 }
 
+export async function fetchDiscogsReleaseDetails(discogsId: number, token: string) {
+  const data: any = await $fetch(`${DISCOGS_API_BASE}/releases/${discogsId}`, {
+    headers: {
+      Authorization: `Discogs token=${token}`,
+      'User-Agent': 'beat-clerk/1.0',
+    },
+  })
+
+  return data.tracklist
+    .map((track: any, index: number) => ({
+      position: index + 1,
+      title: track.title,
+    }))
+    .filter((track: any) => track.title.trim() !== '')
+}
+
 export function mapDiscogsRelease(item: any) {
   const info = item.basic_information
 

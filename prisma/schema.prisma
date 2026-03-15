@@ -61,6 +61,7 @@ enum Format {
 
 model Release {
     id String @id @default(cuid())
+    discogsId Int? @unique
     title String
     artists String[]
     year Int?

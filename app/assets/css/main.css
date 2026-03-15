@@ -1,38 +1,40 @@
 :root {
-    --colour-background: #232225;
-    --colour-background-gradient: #451D47;
-    --colour-surface: #1A191B;
-    --colour-surface-dark: #121113;
-    --colour-text-primary: #EEEEF0;
-    --colour-text-muted: #B5B2BC;
-    --colour-border: #3C393F;
+  --colour-background: #232225;
+  --colour-background-gradient: #451d47;
+  --colour-surface: #1a191b;
+  --colour-surface-dark: #121113;
+  --colour-text-primary: #eeeef0;
+  --colour-text-muted: #b5b2bc;
+  --colour-border: #3c393f;
+  --colour-success: #1d3a24;
+  --colour-error: #5e1c16;
 
-    --radius-sm: 5px;
-    --radius-md: 12px;
+  --radius-sm: 5px;
+  --radius-md: 12px;
 }
 
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-    background:
-            radial-gradient(
-                    ellipse 40% 120% at 10% 50%,
-                    var(--colour-background-gradient),
-                    transparent 100%
-            ),
-            var(--colour-background);
-    color: var(--colour-text-primary);
-    font-family: 'Aileron', sans-serif;
+  background:
+    radial-gradient(
+      ellipse 40% 120% at 10% 50%,
+      var(--colour-background-gradient),
+      transparent 100%
+    ),
+    var(--colour-background);
+  color: var(--colour-text-primary);
+  font-family: 'Aileron', sans-serif;
 }
 
 .logo {
-    font-size: 24px;
-    font-weight: 200;
-    letter-spacing: 0.12em;
-    color: var(--colour-text-primary);
-    text-decoration: none;
+  font-size: 24px;
+  font-weight: 200;
+  letter-spacing: 0.12em;
+  color: var(--colour-text-primary);
+  text-decoration: none;
 }

@@ -4,7 +4,6 @@ developed by me, finn
 
 list of things still to do:
 
-- Feather icons
 - Custom import — manual form path
 - Get tracklist for release on import
 - Release modal to show more details
