@@ -2,12 +2,12 @@ export interface BarAction {
   icon: string
   label: string
   onClick: () => void
-  loading?: Ref<boolean>
+  loading?: Ref<boolean> | null
 }
 
-export const useHorizontalBar = () => {
-  const actions = useState<BarAction[]>('bar-actions', () => [])
+const actions = ref<BarAction[]>([])
 
+export const useHorizontalBar = () => {
   const setActions = (newActions: BarAction[]) => {
     actions.value = newActions
     onUnmounted(() => {

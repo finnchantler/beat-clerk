@@ -6,6 +6,8 @@ definePageMeta({
 const { fetchReleases } = useReleases()
 const { setActions } = useHorizontalBar()
 
+const addModalOpen = ref(false)
+
 const syncLoading = ref<boolean>(false)
 const syncError = ref<string | null>(null)
 const syncProgress = ref<{ imported: number; total: number; title: string } | null>(null)
@@ -17,6 +19,14 @@ setActions([
     label: 'Sync Discogs Collection',
     loading: syncLoading,
     onClick: () => syncCollection(),
+  },
+  {
+    icon: 'plus-circle',
+    label: 'Add Release',
+    loading: null,
+    onClick: () => {
+      addModalOpen.value = true
+    },
   },
 ])
 
@@ -66,6 +76,9 @@ const syncCollection = () => {
 </script>
 
 <template>
+  <Modal :open="addModalOpen" title="Add Release" @close="addModalOpen = false">
+    <AddReleaseForm @added="addModalOpen = false" />
+  </Modal>
   <div class="collection">
     <div class="collection__header">
       <h1 class="collection__title">Collection</h1>

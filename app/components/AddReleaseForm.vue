@@ -83,6 +83,15 @@ const resetForm = () => {
   tracks.value = [{ position: 1, title: '' }]
 }
 
+const toggleStyle = (value: Style) => {
+  const index = style.value.indexOf(value)
+  if (index === -1) {
+    style.value.push(value)
+  } else {
+    style.value.splice(index, 1)
+  }
+}
+
 const styleOptions = Object.values(Style).map((s) => ({
   value: s,
   label: s.replace(/_/g, ' '),
@@ -93,65 +102,69 @@ const formatOptions = Object.values(Format)
 
 <template>
   <form @submit.prevent="handleSubmit">
-    <div>
+    <div class="form-field">
       <label>Title *</label>
       <input v-model="title" type="text" placeholder="Release title" />
     </div>
 
-    <div>
+    <div class="form-field">
       <label>Artists *</label>
       <div v-for="(artist, index) in artists" :key="index">
         <input v-model="artists[index]" type="text" placeholder="Artist name" />
-        <button type="button" @click="removeArtist(index)" :disabled="artists.length === 1">
+        <button
+          class="btn-danger"
+          type="button"
+          @click="removeArtist(index)"
+          :disabled="artists.length === 1"
+        >
           Remove
         </button>
       </div>
-      <button type="button" @click="addArtist">Add artist</button>
+      <button class="btn-ghost" type="button" @click="addArtist">Add artist</button>
     </div>
 
-    <div>
+    <div class="form-field">
       <label>Format *</label>
       <select v-model="format">
         <option v-for="f in formatOptions" :key="f" :value="f">{{ f }}</option>
       </select>
     </div>
 
-    <div>
-      <label>Style *</label>
-      <select v-model="style" multiple>
-        <option v-for="s in styleOptions" :key="s.value" :value="s.value">
-          {{ s.label }}
-        </option>
-      </select>
+    <div class="style-options">
+      <button
+        v-for="s in styleOptions"
+        :key="s.value"
+        type="button"
+        :class="['style-chip', { 'style-chip--active': style.includes(s.value) }]"
+        @click="toggleStyle(s.value)"
+      >
+        {{ s.label }}
+      </button>
     </div>
 
-    <div>
-      <label>Year</label>
-      <input v-model.number="year" type="number" placeholder="e.g. 1994" min="1900" max="2099" />
+    <div class="form-row">
+      <div class="form-field">
+        <label>Year</label>
+        <input v-model.number="year" type="number" placeholder="e.g. 1994" min="1900" max="2099" />
+      </div>
+      <div class="form-field">
+        <label>Country</label>
+        <input v-model="country" type="text" placeholder="e.g. UK" />
+      </div>
     </div>
 
-    <div>
+    <div class="form-field">
       <label>Label</label>
       <input v-model="label" type="text" placeholder="Record label" />
     </div>
 
-    <div>
-      <label>Country</label>
-      <input v-model="country" type="text" placeholder="e.g. UK" />
-    </div>
-
-    <div>
+    <div class="form-field">
       <label>Tracklist</label>
       <div v-for="(track, index) in tracks" :key="index">
-        <span>{{ track.position }}</span>
-        <input
-          v-model="track.title"
-          type="text"
-          :placeholder="`Track ${track.position} title`"
-        />
-        <button type="button" @click="removeTrack(index)">Remove</button>
+        <input v-model="track.title" type="text" :placeholder="`Track ${track.position} title`" />
+        <button class="btn-danger" type="button" @click="removeTrack(index)">Remove</button>
       </div>
-      <button type="button" @click="addTrack">Add track</button>
+      <button class="btn-ghost" type="button" @click="addTrack">Add track</button>
     </div>
 
     <p v-if="error">{{ error }}</p>
@@ -161,3 +174,100 @@ const formatOptions = Object.values(Format)
     </button>
   </form>
 </template>
+
+<style scoped>
+.style-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.style-chip {
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid var(--colour-border);
+  background: none;
+  color: var(--colour-text-muted);
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.style-chip--active {
+  border-color: var(--colour-text-primary);
+  color: var(--colour-text-primary);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+input,
+select {
+  padding: 0.6rem 0.75rem;
+  background: var(--colour-background);
+  border: 1px solid var(--colour-border);
+  border-radius: var(--radius-sm);
+  color: var(--colour-text-primary);
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.15s;
+  width: 100%;
+}
+
+input:focus,
+select:focus {
+  border-color: var(--colour-border-hover);
+}
+
+.btn-ghost {
+  background: none;
+  border: 1px solid var(--colour-border);
+  color: var(--colour-text-muted);
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.btn-ghost:hover {
+  border-color: var(--colour-border-hover);
+  color: var(--colour-text-primary);
+}
+
+.btn-danger {
+  background: none;
+  border: none;
+  color: var(--colour-text-muted);
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: color 0.15s;
+  padding: 0 0.25rem;
+}
+
+.btn-danger:hover {
+  color: var(--colour-error);
+}
+
+label {
+  font-size: 0.8rem;
+  color: var(--colour-text-muted);
+  font-weight: 500;
+}
+</style>
