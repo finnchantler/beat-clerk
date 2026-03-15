@@ -9,6 +9,7 @@ import SidebarNavigation from '~/components/SidebarNavigation.vue'
     <div class="layout__body">
       <SidebarNavigation />
       <main class="layout__main">
+        <HorizontalBar />
         <div class="layout__content">
           <slot />
         </div>

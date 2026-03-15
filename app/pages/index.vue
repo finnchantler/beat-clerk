@@ -4,11 +4,21 @@ definePageMeta({
 })
 
 const { fetchReleases } = useReleases()
+const { setActions } = useHorizontalBar()
 
 const syncLoading = ref<boolean>(false)
 const syncError = ref<string | null>(null)
 const syncProgress = ref<{ imported: number; total: number; title: string } | null>(null)
 const syncComplete = ref<boolean>(false)
+
+setActions([
+  {
+    icon: 'refresh-cw',
+    label: 'Sync Discogs Collection',
+    loading: syncLoading,
+    onClick: () => syncCollection(),
+  },
+])
 
 const syncCollection = () => {
   syncLoading.value = true
@@ -56,7 +66,6 @@ const syncCollection = () => {
 </script>
 
 <template>
-  <HorizontalBar :sync-loading="syncLoading" @sync="syncCollection" />
   <div class="collection">
     <div class="collection__header">
       <h1 class="collection__title">Collection</h1>

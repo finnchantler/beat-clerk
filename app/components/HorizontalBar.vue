@@ -1,20 +1,18 @@
 <script setup lang="ts">
-const router = useRouter()
-const route = useRoute()
-
-const barItems = []
-
-const isActive = (path: string) => route.path === path
-
-const props = defineProps<{ syncLoading?: boolean }>()
-const emit = defineEmits<{ sync: [] }>()
+const { actions } = useHorizontalBar()
 </script>
 
 <template>
   <div class="bar">
-    <button @click="emit('sync')" :disabled="props.syncLoading" class="icon-btn">
-      <VueFeather type="refresh-cw" size="16" />
-      Sync Discogs Collection
+    <button
+      v-for="(action, i) in actions"
+      :key="i"
+      class="icon-btn"
+      :disabled="action.loading?.value"
+      @click="action.onClick"
+    >
+      <VueFeather :type="action.icon" size="16" />
+      {{ action.label }}
     </button>
   </div>
 </template>
@@ -28,6 +26,9 @@ const emit = defineEmits<{ sync: [] }>()
   background-color: var(--colour-surface-dark);
   width: 100%;
   padding: 18px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 
 .icon-btn {
