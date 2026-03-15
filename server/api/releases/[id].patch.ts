@@ -1,6 +1,6 @@
 import { requireAuth } from '../../utils/session'
 import { prisma } from '../../utils/prisma'
-import { Style, Format } from '../../../app/generated/prisma/client'
+import { Format, Style } from '~/generated/prisma/enums'
 
 export default defineEventHandler(async (event) => {
   const user = await requireAuth(event)
@@ -46,11 +46,9 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 400, message: 'No valid fields to update' })
   }
 
-  const updated = await prisma.release.update({
+  return prisma.release.update({
     where: { id },
     data,
     include: { tracks: { orderBy: { position: 'asc' } } },
   })
-
-  return updated
 })

@@ -1,4 +1,4 @@
-import { Format, Style } from '../../app/generated/prisma/client'
+import { Format, Style } from '~/generated/prisma/enums'
 
 const DISCOGS_API_BASE = 'https://api.discogs.com'
 

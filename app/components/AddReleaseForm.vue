@@ -109,7 +109,7 @@ const formatOptions = Object.values(Format)
 
     <div class="form-field">
       <label>Artists *</label>
-      <div v-for="(artist, index) in artists" :key="index">
+      <div v-for="(_, index) in artists" :key="index">
         <input v-model="artists[index]" type="text" placeholder="Artist name" />
         <button
           class="btn-reset btn-danger"

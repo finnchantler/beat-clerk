@@ -5,6 +5,7 @@ const route = useRoute()
 
 const navItems = [
   { label: 'Collection', to: '/' },
+  { label: 'Discogs Wantlist', to: '/wantlist' },
   { label: 'Profile', to: '/profile' },
   { label: 'Settings', to: '/settings' },
 ]
@@ -107,6 +108,7 @@ const handleLogout = async () => {
 }
 
 .sidebar__logout {
+  background: none;
   border: 1px solid var(--colour-border);
   border-radius: 5px;
   color: var(--colour-text-muted);
@@ -117,6 +119,7 @@ const handleLogout = async () => {
     border-color 0.15s,
     color 0.15s;
   width: 100%;
+  cursor: pointer;
 }
 
 .sidebar__logout:hover {
