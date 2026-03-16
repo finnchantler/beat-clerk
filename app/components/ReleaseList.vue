@@ -2,15 +2,20 @@
 import type { Release } from '~/types/release'
 import type { ViewMode } from '~/types/viewMode'
 
-const props = defineProps<{ viewMode: ViewMode }>()
+const props = defineProps<{
+  viewMode: ViewMode
+  search: string
+}>()
 
-const { releases, loading, error, fetchReleases, deleteRelease } = useReleases()
+const { releases, loading, error, fetchReleases, filterReleases } = useReleases()
 
 onMounted(async () => {
   await fetchReleases()
 })
 
 const selectedRelease = ref<Release | null>(null)
+
+const filteredReleases = computed(() => filterReleases(props.search))
 
 const handleUpdated = (updated: Release) => {
   const index = releases.value.findIndex((r) => r.id === updated.id)
@@ -26,11 +31,15 @@ const handleUpdated = (updated: Release) => {
 
     <p v-else-if="error">{{ error }}</p>
 
-    <p v-else-if="releases.length === 0">Your collection is empty. Add your first release above.</p>
+    <p v-else-if="filteredReleases.length === 0 && search">No releases match your search.</p>
+
+    <p v-else-if="filteredReleases.length === 0">
+      Your collection is empty. Add your first release above.
+    </p>
 
     <div v-else :class="`releases--${viewMode}`">
       <ReleaseCard
-        v-for="release in releases"
+        v-for="release in filteredReleases"
         :key="release.id"
         :release="release"
         :view="viewMode"

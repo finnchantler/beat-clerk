@@ -49,5 +49,17 @@ export const useReleases = () => {
     }
   }
 
-  return { releases, loading, error, fetchReleases, addRelease, deleteRelease }
+  const filterReleases = (query: string) => {
+    if (!query.trim()) return releases.value
+
+    const q = query.toLowerCase()
+
+    return releases.value.filter((release) => {
+      const titleMatch = release.title.toLowerCase().includes(q)
+      const artistMatch = release.artists.some((a) => a.toLowerCase().includes(q))
+      return titleMatch || artistMatch
+    })
+  }
+
+  return { releases, loading, error, fetchReleases, addRelease, deleteRelease, filterReleases }
 }

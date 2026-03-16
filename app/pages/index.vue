@@ -9,8 +9,19 @@ const { fetchReleases } = useReleases()
 const { setActions } = useHorizontalBar()
 
 const viewMode = ref<ViewMode>('grid')
-
 const addModalOpen = ref(false)
+const searchQuery = ref('')
+const debouncedQuery = ref('')
+let debounceTimer: ReturnType<typeof setTimeout>
+
+watch(searchQuery, (val) => {
+  clearTimeout(debounceTimer)
+  debounceTimer = setTimeout(() => {
+    debouncedQuery.value = val
+  }, 300)
+})
+
+onUnmounted(() => clearTimeout(debounceTimer))
 
 const syncLoading = ref<boolean>(false)
 const syncError = ref<string | null>(null)
@@ -19,12 +30,20 @@ const syncComplete = ref<boolean>(false)
 
 setActions([
   {
+    type: 'search',
+    placeholder: 'Search by title or artist...',
+    getValue: () => searchQuery.value,
+    onUpdate: (val: string) => (searchQuery.value = val),
+  },
+  {
+    type: 'button',
     icon: 'refresh-cw',
     label: 'Sync Discogs Collection',
     loading: syncLoading,
     onClick: () => syncCollection(),
   },
   {
+    type: 'button',
     icon: 'plus-circle',
     label: 'Add Release',
     loading: null,
@@ -111,7 +130,7 @@ const syncCollection = () => {
       <NuxtLink v-if="syncError.includes('credentials')" to="/settings"> Go to settings </NuxtLink>
     </div>
 
-    <ReleaseList :view-mode="viewMode" />
+    <ReleaseList :view-mode="viewMode" :search="debouncedQuery" />
   </div>
 </template>
 

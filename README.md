@@ -4,12 +4,8 @@ developed by me, finn
 
 list of things still to do:
 
-- Add options to change size of release card on collection listing
-- Add search to the horizontal bar
-- Add option to change accent colour in settings
 - Ability to star tracks and mark tracks as 'not in collection'
 - Toggle between viewing entire releases and tracks
-- Implement grid vs list view properly
 
 - Add discogs wantlist integration, maybe integrate discogs-watcher into this
 - Importing just tracks vs whole album
