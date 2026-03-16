@@ -3,7 +3,7 @@ import type { Release } from '~/types/release'
 
 const props = defineProps<{
   release: Release
-  view: 'grid' | 'list'
+  view: 'grid' | 'grid-small' | 'list'
 }>()
 
 const emit = defineEmits<{
@@ -99,6 +99,45 @@ const formatArtists = (artists: string[]) => artists.join(', ')
   flex-direction: column;
   gap: 0.4rem;
   flex: 1;
+}
+
+/* Grid-small view */
+.release-card--grid-small {
+  display: flex;
+  flex-direction: column;
+}
+
+.release-card--grid-small .release-card__cover {
+  width: 100%;
+  aspect-ratio: 1;
+  overflow: hidden;
+}
+
+.release-card--grid-small .release-card__cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.release-card--grid-small .release-card__details {
+  position: relative;
+  z-index: 1;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.release-card--grid-small .release-card__title {
+  font-size: 0.8rem;
+}
+
+.release-card--grid-small .release-card__artists {
+  font-size: 0.7rem;
+}
+
+.release-card--grid-small .release-card__meta {
+  display: none;
 }
 
 /* List view */

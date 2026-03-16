@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import type { Release } from '~/types/release'
+import type { ViewMode } from '~/types/viewMode'
+
+const props = defineProps<{ viewMode: ViewMode }>()
 
 const { releases, loading, error, fetchReleases, deleteRelease } = useReleases()
 
@@ -15,12 +18,6 @@ const handleUpdated = (updated: Release) => {
     releases.value[index] = updated
   }
 }
-
-const formatStyles = (styles: string[]) => {
-  return styles.map((s) => s.replace(/_/g, ' ')).join(', ')
-}
-
-const view = 'grid'
 </script>
 
 <template>
@@ -31,12 +28,12 @@ const view = 'grid'
 
     <p v-else-if="releases.length === 0">Your collection is empty. Add your first release above.</p>
 
-    <div v-else :class="view === 'grid' ? 'releases-grid' : 'releases-list'">
+    <div v-else :class="`releases--${viewMode}`">
       <ReleaseCard
         v-for="release in releases"
         :key="release.id"
         :release="release"
-        :view="view"
+        :view="viewMode"
         @select="selectedRelease = $event"
       />
     </div>
@@ -52,13 +49,19 @@ const view = 'grid'
 </template>
 
 <style scoped>
-.releases-grid {
+.releases--grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 1rem;
 }
 
-.releases-list {
+.releases--grid-small {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 0.75rem;
+}
+
+.releases--list {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;

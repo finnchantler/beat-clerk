@@ -14,6 +14,8 @@ const { actions } = useHorizontalBar()
       <VueFeather :type="action.icon" size="16" />
       {{ action.label }}
     </button>
+
+    <div id="bar-right" class="bar__right" />
   </div>
 </template>
 
@@ -32,14 +34,23 @@ const { actions } = useHorizontalBar()
 }
 
 .icon-btn {
-  color: var(--colour-text-primary);
+  color: var(--colour-text-muted);
   display: flex;
   align-items: center;
   gap: 7px;
+  transition: color 0.15s;
+}
+
+.icon-btn:hover {
+  color: var(--colour-text-primary);
 }
 
 .icon-btn:disabled {
   opacity: 0.4;
   cursor: not-allowed;
+}
+
+.bar__right {
+  margin-left: auto;
 }
 </style>

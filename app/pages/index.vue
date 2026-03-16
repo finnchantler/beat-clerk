@@ -1,10 +1,14 @@
 <script setup lang="ts">
+import type { ViewMode } from '~/types/viewMode'
+
 definePageMeta({
   middleware: 'auth',
 })
 
 const { fetchReleases } = useReleases()
 const { setActions } = useHorizontalBar()
+
+const viewMode = ref<ViewMode>('grid')
 
 const addModalOpen = ref(false)
 
@@ -76,9 +80,14 @@ const syncCollection = () => {
 </script>
 
 <template>
+  <Teleport to="#bar-right">
+    <ViewToggle v-model="viewMode" />
+  </Teleport>
+
   <Modal :open="addModalOpen" title="Add Release" @close="addModalOpen = false">
     <AddReleaseForm @added="addModalOpen = false" />
   </Modal>
+
   <div class="collection">
     <div class="collection__header">
       <h1 class="collection__title">Collection</h1>
@@ -102,7 +111,7 @@ const syncCollection = () => {
       <NuxtLink v-if="syncError.includes('credentials')" to="/settings"> Go to settings </NuxtLink>
     </div>
 
-    <ReleaseList />
+    <ReleaseList :view-mode="viewMode" />
   </div>
 </template>
 
