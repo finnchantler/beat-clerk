@@ -27,6 +27,8 @@ export enum Format {
 export interface Track {
   id: string
   position: number
+  starred: boolean
+  ignored: boolean
   title: string
   releaseId: string
 }

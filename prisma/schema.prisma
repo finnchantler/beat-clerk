@@ -80,6 +80,8 @@ model Release {
 model Track {
     id String @id @default(cuid())
     position Int
+    starred Boolean @default(false)
+    ignored Boolean @default(false)
     title String
     releaseId String
     release Release @relation(fields: [releaseId], references: [id], onDelete: Cascade)

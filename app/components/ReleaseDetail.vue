@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Style } from '~/types/release'
-import type { Release } from '~/types/release'
+import type { Release, Track } from '~/types/release'
 
 const props = defineProps<{
   release: Release
@@ -10,10 +10,61 @@ const emit = defineEmits<{
   updated: [release: Release]
 }>()
 
+const localTracks = ref<Track[]>(props.release.tracks.map((t) => ({ ...t })))
+
+watch(
+  () => props.release.tracks,
+  (tracks) => {
+    localTracks.value = tracks.map((t) => ({ ...t }))
+  }
+)
+
 const editingStyles = ref(false)
 const selectedStyles = ref<Style[]>([...props.release.style])
 const saveLoading = ref(false)
 const saveError = ref<string | null>(null)
+
+const toggleStar = async (track: Track) => {
+  const index = localTracks.value.findIndex((t) => t.id === track.id)
+  if (index === -1) return
+
+  const localTrack = localTracks.value[index]
+  if (!localTrack) return
+
+  const newValue = !track.starred
+  localTrack.starred = newValue
+
+  try {
+    await $fetch(`/api/tracks/${track.id}`, {
+      method: 'PATCH',
+      body: { starred: newValue },
+    })
+    emit('updated', { ...props.release, tracks: localTracks.value })
+  } catch (e) {
+    localTrack.starred = !newValue
+  }
+}
+
+const toggleIgnored = async (track: Track) => {
+  const index = localTracks.value.findIndex((t) => t.id === track.id)
+  if (index === -1) return
+
+  const localTrack = localTracks.value[index]
+  if (!localTrack) return
+
+  const newValue = !track.ignored
+  localTrack.ignored = newValue
+
+  try {
+    await $fetch(`/api/tracks/${track.id}`, {
+      method: 'PATCH',
+      body: { ignored: newValue },
+    })
+    emit('updated', { ...props.release, tracks: localTracks.value })
+  } catch (e) {
+    localTrack.ignored = !newValue
+  }
+}
 
 const styleOptions = Object.values(Style).map((s) => ({
   value: s,
@@ -139,9 +190,31 @@ const cancelEdit = () => {
     <div v-if="release.tracks?.length" class="release-detail__section">
       <h3 class="release-detail__section-title">Tracklist</h3>
       <div class="release-detail__tracklist">
-        <div v-for="track in release.tracks" :key="track.id" class="release-detail__track">
+        <div
+          v-for="track in localTracks"
+          :key="track.id"
+          :class="['release-detail__track', { 'release-detail__track--ignored': track.ignored }]"
+        >
           <span class="release-detail__track-position">{{ track.position }}</span>
           <span class="release-detail__track-title">{{ track.title }}</span>
+          <div class="release-detail__track-actions">
+            <button
+              class="icon-btn"
+              :class="{ 'icon-btn--active': track.starred }"
+              @click="toggleStar(track)"
+              :aria-label="track.starred ? 'Unstar track' : 'Star track'"
+            >
+              <VueFeather type="star" size="14" />
+            </button>
+            <button
+              class="icon-btn"
+              :class="{ 'icon-btn--active': track.ignored }"
+              @click="toggleIgnored(track)"
+              :aria-label="track.ignored ? 'Unignore track' : 'Ignore track'"
+            >
+              <VueFeather type="eye-off" size="14" />
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -302,7 +375,33 @@ const cancelEdit = () => {
 .release-detail__track {
   display: flex;
   gap: 0.75rem;
-  align-items: baseline;
+  align-items: center;
+  transition: opacity 0.15s;
+}
+
+.release-detail__track--ignored {
+  opacity: 0.4;
+
+  .release-detail__track-title {
+    text-decoration: line-through;
+    color: var(--colour-text-muted);
+  }
+}
+
+.release-detail__track-actions {
+  display: flex;
+  gap: 0.25rem;
+  margin-left: auto;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.release-detail__track:hover .release-detail__track-actions {
+  opacity: 1;
+}
+
+.icon-btn--active {
+  color: var(--colour-text-primary);
 }
 
 .release-detail__track-position {

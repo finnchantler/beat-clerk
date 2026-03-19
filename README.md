@@ -4,7 +4,6 @@ developed by me, finn
 
 list of things still to do:
 
-- Ability to star tracks and mark tracks as 'not in collection'
 - Toggle between viewing entire releases and tracks
 
 - Add discogs wantlist integration, maybe integrate discogs-watcher into this
