@@ -1,11 +1,10 @@
 export default defineEventHandler(async (event) => {
   const user = await requireAuth(event)
 
-  const releases = await prisma.release.findMany({
+  const items = await prisma.watchlistItem.findMany({
     where: { userId: user.id },
-    include: { tracks: { orderBy: { position: 'asc' } } },
     orderBy: { createdAt: 'desc' },
   })
 
-  return releases
+  return items
 })

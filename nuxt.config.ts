@@ -15,4 +15,12 @@ export default defineNuxtConfig({
       styles: ['normal'],
     },
   },
+  nitro: {
+    experimental: {
+      tasks: true,
+    },
+    scheduledTasks: {
+      '*/5 * * * *': ['watchlist:check'],
+    },
+  },
 })

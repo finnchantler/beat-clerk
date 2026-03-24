@@ -48,3 +48,149 @@ body {
   color: var(--colour-text-primary);
   text-decoration: none;
 }
+
+/* --- form field --- */
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+/* --- buttons --- */
+.btn-submit {
+  align-self: flex-start;
+  border: 1px solid var(--colour-border);
+  color: var(--colour-text-muted);
+  padding: 0.45rem 1rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  transition:
+    border-color 0.15s,
+    color 0.15s;
+}
+
+.btn-submit:hover:not(:disabled) {
+  border-color: var(--colour-border-hover);
+  color: var(--colour-text-primary);
+}
+
+.btn-submit:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn-ghost {
+  border: 1px solid var(--colour-border);
+  color: var(--colour-text-muted);
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  transition: all 0.15s;
+}
+
+.btn-ghost:hover:not(:disabled) {
+  border-color: var(--colour-border-hover);
+  color: var(--colour-text-primary);
+}
+
+.btn-ghost:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn-danger {
+  color: var(--colour-text-muted);
+  font-size: 0.75rem;
+  transition: color 0.15s;
+  padding: 0 0.25rem;
+}
+
+.btn-danger:hover {
+  color: var(--colour-error);
+}
+
+/* --- icon button --- */
+.icon-btn {
+  color: var(--colour-text-muted);
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  transition: color 0.15s;
+}
+
+.icon-btn:hover {
+  color: var(--colour-text-primary);
+}
+
+.icon-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.icon-btn--active {
+  color: var(--colour-text-primary);
+}
+
+/* --- style chip --- */
+.style-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.style-chip {
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid var(--colour-border);
+  color: var(--colour-text-muted);
+  font-size: 0.8rem;
+  transition: all 0.15s;
+}
+
+.style-chip--active {
+  border-color: var(--colour-text-primary);
+  color: var(--colour-text-primary);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* --- auth page layout --- */
+.auth-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 0 2rem;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.auth-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--colour-text-primary);
+  margin: 0;
+}
+
+.auth-footer {
+  font-size: 0.85rem;
+  color: var(--colour-text-muted);
+  margin: 0;
+}
+
+.auth-footer a {
+  color: var(--colour-text-primary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* --- text states --- */
+.error {
+  font-size: 0.85rem;
+  color: var(--colour-error);
+}

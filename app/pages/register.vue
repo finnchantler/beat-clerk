@@ -94,39 +94,10 @@ const handleSubmit = async () => {
 </template>
 
 <style scoped>
-.auth-page {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  padding: 0 2rem;
-}
-
-.auth-card {
-  width: 100%;
-  max-width: 400px;
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-}
-
-.auth-title {
-  font-size: 1.4rem;
-  font-weight: 600;
-  color: var(--colour-text-primary);
-  margin: 0;
-}
-
 form {
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
-}
-
-.form-field {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
 }
 
 label {
@@ -149,44 +120,5 @@ input {
 
 input:focus {
   border-color: var(--colour-border-hover);
-}
-
-.btn-submit {
-  align-self: flex-start;
-  border: 1px solid var(--colour-border);
-  color: var(--colour-text-muted);
-  padding: 0.45rem 1rem;
-  border-radius: var(--radius-sm);
-  font-size: 0.85rem;
-  transition:
-    border-color 0.15s,
-    color 0.15s;
-}
-
-.btn-submit:hover:not(:disabled) {
-  border-color: var(--colour-border-hover);
-  color: var(--colour-text-primary);
-}
-
-.btn-submit:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-}
-
-.error {
-  font-size: 0.85rem;
-  color: var(--colour-error);
-}
-
-.auth-footer {
-  font-size: 0.85rem;
-  color: var(--colour-text-muted);
-  margin: 0;
-}
-
-.auth-footer a {
-  color: var(--colour-text-primary);
-  text-decoration: underline;
-  text-underline-offset: 2px;
 }
 </style>

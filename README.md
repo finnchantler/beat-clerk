@@ -4,9 +4,8 @@ developed by me, finn
 
 list of things still to do:
 
+- Add smooth loading state to the UI
 - Toggle between viewing entire releases and tracks
-
-- Add discogs wantlist integration, maybe integrate discogs-watcher into this
 - Importing just tracks vs whole album
 - Links (labels, bandcamp, discogs)
 - Feature: playlists

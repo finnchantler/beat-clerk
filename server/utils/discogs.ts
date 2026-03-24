@@ -1,4 +1,5 @@
-import { Format, Style } from '~/generated/prisma/enums'
+import type { Style } from '~/generated/prisma/enums'
+import { Format } from '~/generated/prisma/enums'
 
 const DISCOGS_API_BASE = 'https://api.discogs.com'
 
@@ -69,6 +70,58 @@ export function mapDiscogsRelease(item: any) {
     country: null,
     cover: info.cover_image ?? null,
   }
+}
+
+export async function fetchDiscogsWantlist(username: string, token: string) {
+  const wants: any[] = []
+  let page = 1
+  let totalPages = 1
+
+  while (page <= totalPages) {
+    const data: any = await $fetch(`${DISCOGS_API_BASE}/users/${username}/wants`, {
+      headers: {
+        Authorization: `Discogs token=${token}`,
+        'User-Agent': 'beat-clerk/1.0',
+      },
+      query: {
+        page,
+        per_page: 100,
+      },
+    })
+
+    wants.push(...data.wants)
+    totalPages = data.pagination.pages
+    page++
+  }
+
+  return wants
+}
+
+export function mapDiscogsWantlistItem(item: any) {
+  const info = item.basic_information
+
+  return {
+    discogsReleaseId: info.id,
+    title: info.title,
+    artist: info.artists
+      .map((a: any) => {
+        const name = a.anv || a.name
+        return name.replace(/\s*\(\d+\)\s*$/, '').trim()
+      })
+      .join(', '),
+    cover: info.cover_image ?? null,
+  }
+}
+
+export async function fetchDiscogsMarketplaceStats(releaseId: number, token: string) {
+  const data: any = await $fetch(`${DISCOGS_API_BASE}/marketplace/stats/${releaseId}`, {
+    headers: {
+      Authorization: `Discogs token=${token}`,
+      'User-Agent': 'beat-clerk/1.0',
+    },
+  })
+
+  return data.num_for_sale ?? 0
 }
 
 function mapFormat(formats: any[]): Format {

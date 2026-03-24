@@ -1,11 +1,3 @@
-import { requireAuth } from '#server/utils/session'
-import { prisma } from '#server/utils/prisma'
-import {
-  fetchDiscogsCollection,
-  fetchDiscogsReleaseDetails,
-  mapDiscogsRelease,
-} from '#server/utils/discogs'
-
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
 export default defineEventHandler(async (event) => {

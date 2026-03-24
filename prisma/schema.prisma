@@ -22,6 +22,8 @@ model User {
     discogsToken String?
     sessions Session[]
     releases Release[]
+    watchlistItems WatchlistItem[]
+    notifications Notification[]
     createdAt DateTime @default(now())
 }
 
@@ -85,4 +87,28 @@ model Track {
     title String
     releaseId String
     release Release @relation(fields: [releaseId], references: [id], onDelete: Cascade)
+}
+
+model WatchlistItem {
+    id String @id @default(cuid())
+    userId String
+    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+    discogsReleaseId Int
+    title String
+    artist String
+    cover String?
+    availableCount Int @default(0)
+    lastCheckedAt DateTime @default(now())
+    createdAt DateTime @default(now())
+
+    @@unique([userId, discogsReleaseId])
+}
+
+model Notification {
+    id String @id @default(cuid())
+    userId String
+    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+    message String
+    read Boolean @default(false)
+    createdAt DateTime @default(now())
 }

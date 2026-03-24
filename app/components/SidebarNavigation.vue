@@ -34,6 +34,7 @@ const handleLogout = async () => {
     <div class="sidebar__footer">
       <div class="sidebar__user">
         <span class="sidebar__username">{{ user?.username }}</span>
+        <NotificationsBell />
       </div>
       <button class="btn-reset sidebar__logout" @click="handleLogout">Log out</button>
     </div>
@@ -99,6 +100,7 @@ const handleLogout = async () => {
 .sidebar__user {
   display: flex;
   align-items: center;
+  gap: 0.5rem;
 }
 
 .sidebar__username {

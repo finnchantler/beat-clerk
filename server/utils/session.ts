@@ -1,4 +1,5 @@
-import { H3Event, getCookie, setCookie, deleteCookie } from 'h3'
+import type { H3Event } from 'h3'
+import { getCookie, setCookie, deleteCookie } from 'h3'
 import { prisma } from './prisma'
 
 const SESSION_COOKIE_NAME = 'beat-clerk-session'

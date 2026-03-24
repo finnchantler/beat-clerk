@@ -1,5 +1,3 @@
-import { requireAuth } from '../../utils/session'
-import { prisma } from '../../utils/prisma'
 import { Format, Style } from '~/generated/prisma/enums'
 
 export default defineEventHandler(async (event) => {

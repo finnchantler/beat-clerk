@@ -1,6 +1,3 @@
-<script setup lang="ts">
-import SidebarNavigation from '~/components/SidebarNavigation.vue'
-</script>
 <template>
   <div class="layout">
     <header class="layout__header">

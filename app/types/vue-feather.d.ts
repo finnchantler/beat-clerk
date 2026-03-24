@@ -1,4 +1,4 @@
-import VueFeather from 'vue-feather'
+import type VueFeather from 'vue-feather'
 
 declare module '@vue/runtime-core' {
   interface GlobalComponents {

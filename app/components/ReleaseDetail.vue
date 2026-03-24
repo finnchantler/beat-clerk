@@ -142,8 +142,8 @@ const cancelEdit = () => {
         <button
           v-if="!editingStyles"
           class="btn-reset icon-btn"
-          @click="editingStyles = true"
           aria-label="Edit styles"
+          @click="editingStyles = true"
         >
           <VueFeather type="edit-2" size="14" class="edit-icon" />
         </button>
@@ -151,8 +151,8 @@ const cancelEdit = () => {
 
       <div v-if="!editingStyles" class="release-detail__styles">
         <span
-          v-if="release.style?.length"
           v-for="s in release.style"
+          v-if="release.style?.length"
           :key="s"
           class="style-chip style-chip--active"
         >
@@ -201,16 +201,16 @@ const cancelEdit = () => {
             <button
               class="icon-btn"
               :class="{ 'icon-btn--active': track.starred }"
-              @click="toggleStar(track)"
               :aria-label="track.starred ? 'Unstar track' : 'Star track'"
+              @click="toggleStar(track)"
             >
               <VueFeather type="star" size="14" />
             </button>
             <button
               class="icon-btn"
               :class="{ 'icon-btn--active': track.ignored }"
-              @click="toggleIgnored(track)"
               :aria-label="track.ignored ? 'Unignore track' : 'Ignore track'"
+              @click="toggleIgnored(track)"
             >
               <VueFeather type="eye-off" size="14" />
             </button>
@@ -314,11 +314,6 @@ const cancelEdit = () => {
   justify-content: space-between;
 }
 
-.icon-btn {
-  display: flex;
-  align-items: center;
-}
-
 .edit-icon {
   color: var(--colour-text-primary);
 }
@@ -339,25 +334,7 @@ const cancelEdit = () => {
 }
 
 .style-options {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
   margin-bottom: 0.75rem;
-}
-
-.style-chip {
-  padding: 0.3rem 0.75rem;
-  border-radius: 999px;
-  border: 1px solid var(--colour-border);
-  color: var(--colour-text-muted);
-  font-size: 0.8rem;
-  transition: all 0.15s;
-}
-
-.style-chip--active {
-  border-color: var(--colour-text-primary);
-  color: var(--colour-text-primary);
-  background: rgba(255, 255, 255, 0.05);
 }
 
 .release-detail__edit-actions {
@@ -400,10 +377,6 @@ const cancelEdit = () => {
   opacity: 1;
 }
 
-.icon-btn--active {
-  color: var(--colour-text-primary);
-}
-
 .release-detail__track-position {
   font-size: 0.75rem;
   color: var(--colour-text-muted);
@@ -426,24 +399,5 @@ const cancelEdit = () => {
   font-size: 0.8rem;
   color: var(--colour-error);
   margin-bottom: 0.5rem;
-}
-
-.btn-ghost {
-  border: 1px solid var(--colour-border);
-  color: var(--colour-text-muted);
-  padding: 0.35rem 0.75rem;
-  border-radius: var(--radius-sm);
-  font-size: 0.8rem;
-  transition: all 0.15s;
-}
-
-.btn-ghost:hover:not(:disabled) {
-  border-color: var(--colour-border-hover);
-  color: var(--colour-text-primary);
-}
-
-.btn-ghost:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
 }
 </style>

@@ -114,8 +114,8 @@ const formatOptions = Object.values(Format)
         <button
           class="btn-reset btn-danger"
           type="button"
-          @click="removeArtist(index)"
           :disabled="artists.length === 1"
+          @click="removeArtist(index)"
         >
           Remove
         </button>
@@ -178,33 +178,6 @@ const formatOptions = Object.values(Format)
 </template>
 
 <style scoped>
-.style-options {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-}
-
-.style-chip {
-  padding: 0.3rem 0.75rem;
-  border-radius: 999px;
-  border: 1px solid var(--colour-border);
-  color: var(--colour-text-muted);
-  font-size: 0.8rem;
-  transition: all 0.15s;
-}
-
-.style-chip--active {
-  border-color: var(--colour-text-primary);
-  color: var(--colour-text-primary);
-  background: rgba(255, 255, 255, 0.05);
-}
-
-.form-field {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-}
-
 .form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -233,31 +206,6 @@ select {
 input:focus,
 select:focus {
   border-color: var(--colour-border-hover);
-}
-
-.btn-ghost {
-  border: 1px solid var(--colour-border);
-  color: var(--colour-text-muted);
-  padding: 0.35rem 0.75rem;
-  border-radius: var(--radius-sm);
-  font-size: 0.8rem;
-  transition: all 0.15s;
-}
-
-.btn-ghost:hover {
-  border-color: var(--colour-border-hover);
-  color: var(--colour-text-primary);
-}
-
-.btn-danger {
-  color: var(--colour-text-muted);
-  font-size: 0.75rem;
-  transition: color 0.15s;
-  padding: 0 0.25rem;
-}
-
-.btn-danger:hover {
-  color: var(--colour-error);
 }
 
 label {
