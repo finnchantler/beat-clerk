@@ -6,24 +6,26 @@ const { actions } = useHorizontalBar()
 
 <template>
   <div class="bar">
-    <template v-for="(action, i) in actions" :key="i">
-      <input
-        v-if="action.type === 'search'"
-        :value="(action as SearchAction).getValue()"
-        :placeholder="(action as SearchAction).placeholder ?? 'Search...'"
-        class="bar__search"
-        @input="(action as SearchAction).onUpdate(($event.target as HTMLInputElement).value)"
-      />
-      <button
-        v-else-if="action.type === 'button'"
-        class="btn-reset icon-btn"
-        :disabled="(action as ButtonAction).loading?.value"
-        @click="(action as ButtonAction).onClick"
-      >
-        <VueFeather :type="(action as ButtonAction).icon" size="16" />
-        {{ (action as ButtonAction).label }}
-      </button>
-    </template>
+    <ClientOnly>
+      <template v-for="(action, i) in actions" :key="i">
+        <input
+          v-if="action.type === 'search'"
+          :value="(action as SearchAction).getValue()"
+          :placeholder="(action as SearchAction).placeholder ?? 'Search...'"
+          class="bar__search"
+          @input="(action as SearchAction).onUpdate(($event.target as HTMLInputElement).value)"
+        />
+        <button
+          v-else-if="action.type === 'button'"
+          class="btn-reset icon-btn"
+          :disabled="(action as ButtonAction).loading?.value"
+          @click="(action as ButtonAction).onClick"
+        >
+          <VueFeather :type="(action as ButtonAction).icon" size="16" />
+          {{ (action as ButtonAction).label }}
+        </button>
+      </template>
+    </ClientOnly>
     <div id="bar-right" class="bar__right" />
   </div>
 </template>

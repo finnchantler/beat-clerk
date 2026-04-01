@@ -199,7 +199,7 @@ const cancelEdit = () => {
           <span class="release-detail__track-title">{{ track.title }}</span>
           <div class="release-detail__track-actions">
             <button
-              class="icon-btn"
+              class="btn-reset icon-btn"
               :class="{ 'icon-btn--active': track.starred }"
               :aria-label="track.starred ? 'Unstar track' : 'Star track'"
               @click="toggleStar(track)"
@@ -207,7 +207,7 @@ const cancelEdit = () => {
               <VueFeather type="star" size="14" />
             </button>
             <button
-              class="icon-btn"
+              class="btn-reset icon-btn"
               :class="{ 'icon-btn--active': track.ignored }"
               :aria-label="track.ignored ? 'Unignore track' : 'Ignore track'"
               @click="toggleIgnored(track)"

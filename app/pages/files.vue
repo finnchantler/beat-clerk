@@ -47,33 +47,37 @@ onMounted(async () => {
 
 <template>
   <div class="files">
+    <div class="files__header">
+      <h1 class="files__title">Local Files</h1>
+    </div>
+
     <div v-if="!agentConnected" class="files__offline">
-      <p>beat-clerk agent is not running.</p>
-      <button @click="checkStatus" class="btn-ghost">Check again</button>
+      <p class="files__state">beat-clerk agent is not running.</p>
+      <button class="btn-reset icon-btn" @click="checkStatus">Check again</button>
     </div>
 
     <div v-else>
       <div v-if="result" class="files__breadcrumb">
         <button
           v-if="result.currentPath !== result.rootDir"
-          class="icon-btn"
-          @click="handleBrowse(result.rootDir)"
+          class="btn-reset icon-btn"
           aria-label="Go to root"
+          @click="handleBrowse(result.rootDir)"
         >
           <VueFeather type="home" size="14" />
         </button>
         <span class="files__path">{{ result.currentPath }}</span>
       </div>
 
-      <p v-if="loading">Scanning files...</p>
-      <p v-else-if="error">{{ error }}</p>
+      <p v-if="loading" class="files__state">Scanning files...</p>
+      <p v-else-if="error" class="files__state files__state--error">{{ error }}</p>
 
       <div v-else-if="result">
         <div v-if="result.dirs.length" class="files__dirs">
           <button
             v-for="dir in result.dirs"
             :key="dir.path"
-            class="files__dir"
+            class="btn-reset files__dir"
             @click="handleBrowse(dir.path)"
           >
             <VueFeather type="folder" size="14" />
@@ -102,17 +106,17 @@ onMounted(async () => {
 
               <div class="files__match-actions">
                 <button
-                  class="icon-btn icon-btn--confirm"
+                  class="btn-reset icon-btn icon-btn--confirm"
                   :disabled="confirmingMap === match.filePath"
-                  @click="handleConfirm(match)"
                   aria-label="Confirm mapping"
+                  @click="handleConfirm(match)"
                 >
                   <VueFeather type="check" size="14" />
                 </button>
                 <button
-                  class="icon-btn"
-                  @click="dismissMapping(match.filePath)"
+                  class="btn-reset icon-btn"
                   aria-label="Dismiss"
+                  @click="dismissMapping(match.filePath)"
                 >
                   <VueFeather type="x" size="14" />
                 </button>
@@ -120,13 +124,169 @@ onMounted(async () => {
             </div>
 
             <div v-else class="files__match-unmatched">
-              <span>No match found</span>
+              <span class="files__state">No match found</span>
             </div>
           </div>
         </div>
 
-        <p v-else-if="!result.dirs.length">No audio files found in this directory.</p>
+        <p v-else-if="!result.dirs.length" class="files__state">
+          No audio files found in this directory.
+        </p>
       </div>
     </div>
   </div>
 </template>
+
+<style scoped>
+.files {
+  padding: 30px;
+}
+
+.files__header {
+  margin-bottom: 20px;
+}
+
+.files__title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--colour-text-primary);
+}
+
+.files__state {
+  font-size: 0.85rem;
+  color: var(--colour-text-muted);
+}
+
+.files__state--error {
+  color: var(--colour-error);
+}
+
+.files__offline {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.files__breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.files__path {
+  font-size: 0.8rem;
+  color: var(--colour-text-muted);
+  font-family: monospace;
+}
+
+.files__dirs {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-bottom: 1rem;
+}
+
+.files__dir {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius-md);
+  background: var(--colour-surface-dark);
+  color: var(--colour-text-muted);
+  font-size: 0.875rem;
+  text-align: left;
+  transition:
+    background 0.15s,
+    color 0.15s;
+  cursor: pointer;
+}
+
+.files__dir:hover {
+  background: var(--colour-border);
+  color: var(--colour-text-primary);
+}
+
+.files__matches {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.files__match {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  border-radius: var(--radius-md);
+  background: var(--colour-surface-dark);
+}
+
+.files__match-file {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--colour-text-muted);
+}
+
+.files__match-name {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--colour-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.files__match-proposed {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--colour-border);
+}
+
+.files__match-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+}
+
+.files__match-track {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--colour-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.files__match-release {
+  font-size: 0.8rem;
+  color: var(--colour-text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.files__match-confidence {
+  font-size: 0.75rem;
+  color: var(--colour-text-muted);
+  opacity: 0.7;
+}
+
+.files__match-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex-shrink: 0;
+}
+
+.files__match-unmatched {
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--colour-border);
+}
+</style>
