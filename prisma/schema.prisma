@@ -85,6 +85,7 @@ model Track {
     starred Boolean @default(false)
     ignored Boolean @default(false)
     title String
+    filePath  String?
     releaseId String
     release Release @relation(fields: [releaseId], references: [id], onDelete: Cascade)
 }

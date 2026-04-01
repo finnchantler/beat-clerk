@@ -6,6 +6,7 @@ const route = useRoute()
 const navItems = [
   { label: 'Collection', to: '/' },
   { label: 'Discogs Wantlist', to: '/wantlist' },
+  { label: 'Local Files', to: '/files' },
   { label: 'Settings', to: '/settings' },
 ]
 
